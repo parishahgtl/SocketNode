@@ -4,16 +4,15 @@ const port = 1111;
 var server = require("http").Server(app);
 const io = require("socket.io")(server);
 const cors = require("cors");
+let interval;
 
 app.use(cors());
 
-var clients = {};
-
 io.on("connection", function(client) {
     console.log("connected")
-    setTimeout(() => {
+    setInterval(() => {
         console.log("in msg")
-        client.emit("msg", "Hi Janvi")
+        client.emit("msg", "Hi User..Welcome to React Client App!!")
     }, 8000);
 
     client.on('sendMsg', function(data) {
@@ -23,7 +22,6 @@ io.on("connection", function(client) {
         console.log("disconnect")
     });
 });
-
 server.listen(port, () =>
     console.log(`Example app listening on port ${port}!`)
 );
